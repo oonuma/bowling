@@ -27,18 +27,34 @@ module Bowling
 		end
 			
 			context "ストライクを含む場合" do
-			before do
-				@game = Game.new
-				@game.roll(10)#strike
-				@game.roll(3)
-				@game.roll(4)
-				16.times { @game.roll(0) }
+			  before do
+				  @game = Game.new
+				  @game.roll(10)#strike
+				  @game.roll(3)
+				  @game.roll(4)
+				  16.times { @game.roll(0) }
+			  end
+
+			  describe "#score" do
+			  	subject { @game.score }
+			  	it { should equal(24) }
+			  end
 			end
 
-			describe "#score" do
-				subject { @game.score }
-				it { should equal(24) }
-			end
+			context "スペアを含む場合" do
+			  before do
+			  	@game = Game.new
+			  	@game.roll(5)#spare
+			  	@game.roll(5)#spare
+			  	@game.roll(3)
+			  	@game.roll(4)
+			  	16.times { @game.roll(0) }
+			  end
+
+			  describe "#score" do
+			  	subject { @game.score }
+			  	it { should equal(20) }
+			 end
 		end
 	end
 end
